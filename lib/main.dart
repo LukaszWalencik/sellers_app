@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellers_app/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(),
+      home: SplashScreen(),
     );
   }
 }
