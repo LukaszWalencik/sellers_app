@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 'Sell Food Online',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.black54,
+                    color: Colors.black87,
                     fontSize: 40,
                     fontFamily: 'Signatra',
                     letterSpacing: 3),
