@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellers_app/widgets/custom_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,8 +9,26 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CustomTextField(
+          controller: emailController,
+          icon: Icons.email,
+          hintText: 'Email',
+          isObscure: false,
+        ),
+        CustomTextField(
+          controller: passwordController,
+          icon: Icons.key,
+          hintText: 'Email',
+          isObscure: false,
+        ),
+      ],
+    );
   }
 }
