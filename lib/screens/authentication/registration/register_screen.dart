@@ -19,8 +19,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController loactionController = TextEditingController();
   XFile? imageXFile;
+  final ImagePicker _picker = ImagePicker();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Future<void> getImage() async {
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageXFile;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             const SizedBox(height: 10),
             InkWell(
+              onTap: () => getImage(),
               child: CircleAvatar(
                 radius: width * 0.15,
                 backgroundColor: Colors.white,
