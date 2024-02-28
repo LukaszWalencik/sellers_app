@@ -35,17 +35,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   getCurrentLocation() async {
-    Position newPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    position = newPosition;
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+    if (permission == LocationPermission.always) {
+      Position newPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      position = newPosition;
 
-    placeMarks =
-        await placemarkFromCoordinates(position!.latitude, position!.longitude);
-    Placemark pMarks = placeMarks![0];
-    String completeAdress =
-        '${pMarks.subThoroughfare}, ${pMarks.thoroughfare}, ${pMarks.subLocality}, ${pMarks.locality}, ${pMarks.subAdministrativeArea}, ${pMarks.administrativeArea}, ${pMarks.postalCode}, ${pMarks.country}';
-    print(completeAdress);
-    loactionController.text = completeAdress;
+      placeMarks = await placemarkFromCoordinates(
+          position!.latitude, position!.longitude);
+      Placemark pMarks = placeMarks![0];
+      String completeAdress =
+          '${pMarks.subThoroughfare}, ${pMarks.thoroughfare}, ${pMarks.subLocality}, ${pMarks.locality}, ${pMarks.subAdministrativeArea}, ${pMarks.administrativeArea}, ${pMarks.postalCode}, ${pMarks.country}';
+      print(completeAdress);
+      loactionController.text = completeAdress;
+    }
+    if (permission == LocationPermission.whileInUse) {
+      Position newPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      position = newPosition;
+
+      placeMarks = await placemarkFromCoordinates(
+          position!.latitude, position!.longitude);
+      Placemark pMarks = placeMarks![0];
+      String completeAdress =
+          '${pMarks.subThoroughfare}, ${pMarks.thoroughfare}, ${pMarks.subLocality}, ${pMarks.locality}, ${pMarks.subAdministrativeArea}, ${pMarks.administrativeArea}, ${pMarks.postalCode}, ${pMarks.country}';
+      print(completeAdress);
+      loactionController.text = completeAdress;
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location Not Available');
+    }
   }
 
   @override
