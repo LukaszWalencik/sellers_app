@@ -5,6 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
+import 'package:sellers_app/widgets/error_dialog.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -32,6 +33,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       imageXFile;
     });
+  }
+
+  Future<void> formValidation() async {
+    if (imageXFile == null) {
+      showDialog(
+        context: context,
+        builder: (context) => const ErrorDialog(
+          message: 'Please select an image.',
+        ),
+      );
+    } else {
+      if (passwordController.text == confirmPasswordController.text) {
+        if (nameController.text.isNotEmpty &&
+            emailController.text.isNotEmpty &&
+            passwordController.text.isNotEmpty &&
+            confirmPasswordController.text.isNotEmpty &&
+            phoneController.text.isNotEmpty &&
+            loactionController.text.isNotEmpty) {
+//uploading data
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) => const ErrorDialog(
+              message:
+                  'Please write the complete required info for registration',
+            ),
+          );
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) => const ErrorDialog(
+                  message: 'Password do not match',
+                ));
+      }
+    }
   }
 
   getCurrentLocation() async {
@@ -165,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () => print('Sign Up'),
+                    onPressed: () => formValidation(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       padding: const EdgeInsets.symmetric(horizontal: 60),
