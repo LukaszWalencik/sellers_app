@@ -149,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: () => getCurrentLocation(),
                       icon: const Icon(
                         Icons.location_on,
-                        color: Colors.white,
+                        color: Colors.green,
                       ),
                       label: const Text(
                         'Get my current location',
