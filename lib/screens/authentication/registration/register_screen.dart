@@ -96,6 +96,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  void authenticateSellerAndSignUp() async {
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    )
+        .then((auth) {
+      currentUser = auth.user;
+    });
+  }
+
   Future<void> saveDataToFirestore(User currentUser) async {
     FirebaseFirestore.instance.collection('sellers').doc(currentUser.uid).set({
       'sellerUID': currentUser.uid,
