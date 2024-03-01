@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,12 +24,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController loactionController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
   Position? position;
   List<Placemark>? placeMarks;
   String sellerImageUrl = '';
+  String completeAdress = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -53,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             passwordController.text.isNotEmpty &&
             confirmPasswordController.text.isNotEmpty &&
             phoneController.text.isNotEmpty &&
-            loactionController.text.isNotEmpty) {
+            locationController.text.isNotEmpty) {
           showDialog(
             context: context,
             builder: (context) => const LoadingDialog(
@@ -93,6 +96,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  Future<void> saveDataToFirestore(User currentUser) async {
+    FirebaseFirestore.instance.collection('sellers').doc(currentUser.uid).set({
+      'sellerUID': currentUser.uid,
+      'sellerEmail': currentUser.email,
+      'sellerName': nameController.text.trim(),
+      'sellerAvatarURL': sellerImageUrl,
+      'sellerPassword': passwordController.text.trim(),
+      'sellerPhone': phoneController.text.trim(),
+      'sellerAdress': completeAdress,
+      'sellerStatus': 'aproved',
+      'sellerEarnings': 0,
+      'sellerLat': position!.latitude,
+      'sellerLon': position!.longitude,
+    });
+
+    //save data localy
+  }
+
   getCurrentLocation() async {
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
@@ -110,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String completeAdress =
           '${pMarks.subThoroughfare}, ${pMarks.thoroughfare}, ${pMarks.subLocality}, ${pMarks.locality}, ${pMarks.subAdministrativeArea}, ${pMarks.administrativeArea}, ${pMarks.postalCode}, ${pMarks.country}';
       print(completeAdress);
-      loactionController.text = completeAdress;
+      locationController.text = completeAdress;
     }
     if (permission == LocationPermission.whileInUse) {
       Position newPosition = await Geolocator.getCurrentPosition(
@@ -123,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String completeAdress =
           '${pMarks.subThoroughfare}, ${pMarks.thoroughfare}, ${pMarks.subLocality}, ${pMarks.locality}, ${pMarks.subAdministrativeArea}, ${pMarks.administrativeArea}, ${pMarks.postalCode}, ${pMarks.country}';
       print(completeAdress);
-      loactionController.text = completeAdress;
+      locationController.text = completeAdress;
     }
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location Not Available');
@@ -195,7 +216,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   CustomTextField(
                     icon: Icons.my_location,
-                    controller: loactionController,
+                    controller: locationController,
                     hintText: 'Cafe/Restaurant Adress',
                     isObscure: false,
                     enable: false,
