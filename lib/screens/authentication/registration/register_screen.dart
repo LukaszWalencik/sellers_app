@@ -147,6 +147,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     //save data localy
+
+    SharedPreferences? sharedPreferences =
+        await SharedPreferences.getInstance();
+    await sharedPreferences.setString('uid', currentUser.uid);
+    await sharedPreferences.setString(
+      'sellerName',
+      nameController.text.trim(),
+    );
+    await sharedPreferences.setString('sellerAvatarURL', sellerImageUrl);
   }
 
   getCurrentLocation() async {
