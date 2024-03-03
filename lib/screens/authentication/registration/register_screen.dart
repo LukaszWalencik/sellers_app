@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sellers_app/screens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/loading_dialog.dart';
@@ -75,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               await uploadTask.whenComplete(() {});
           await taskSnapshot.ref.getDownloadURL().then((url) {
             sellerImageUrl = url;
+            authenticateSellerAndSignUp();
           });
 //uploading data
         } else {
@@ -107,6 +109,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .then((auth) {
       currentUser = auth.user;
     });
+    if (currentUser != null) {
+      saveDataToFirestore(currentUser!).then(
+        (value) => Navigator.pop(context),
+      );
+      Route newRoute = MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      );
+      Navigator.pushReplacement(context, newRoute);
+    }
   }
 
   Future<void> saveDataToFirestore(User currentUser) async {
