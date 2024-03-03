@@ -11,6 +11,7 @@ import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/loading_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -108,7 +109,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     )
         .then((auth) {
       currentUser = auth.user;
-    });
+    }).catchError(
+      (error) {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (context) => ErrorDialog(
+            message: error.message.toString(),
+          ),
+        );
+      },
+    );
     if (currentUser != null) {
       saveDataToFirestore(currentUser!).then(
         (value) => Navigator.pop(context),
