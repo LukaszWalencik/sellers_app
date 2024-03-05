@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
@@ -101,7 +102,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void authenticateSellerAndSignUp() async {
     User? currentUser;
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth
         .createUserWithEmailAndPassword(
       email: emailController.text.trim(),
@@ -148,16 +148,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     //save data localy
 
-    SharedPreferences? sharedPreferences =
-        await SharedPreferences.getInstance();
-    await sharedPreferences.setString('uid', currentUser.uid);
-    await sharedPreferences.setString(
+    sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences!.setString('uid', currentUser.uid);
+    await sharedPreferences!.setString(
       'sellerName',
       nameController.text.trim(),
     );
-    await sharedPreferences.setString(
-        'sellerEmail', emailController.text.trim());
-    await sharedPreferences.setString('sellerAvatarURL', sellerImageUrl);
+    await sharedPreferences!
+        .setString('sellerEmail', emailController.text.trim());
+    await sharedPreferences!.setString('sellerAvatarURL', sellerImageUrl);
   }
 
   getCurrentLocation() async {
