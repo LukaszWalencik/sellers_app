@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
