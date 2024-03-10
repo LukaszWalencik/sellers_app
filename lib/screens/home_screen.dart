@@ -36,13 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
           onPressed: () {
-            firebaseAuth.signOut();
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AuthScreen(),
-              ),
-            );
+            firebaseAuth.signOut().then(
+                  (value) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AuthScreen(),
+                    ),
+                  ),
+                );
           },
           child: const Text('Logout'),
         ),
