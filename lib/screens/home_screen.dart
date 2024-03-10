@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        title: Text(sharedPreferences!.getString('name')!),
+        title: Text(sharedPreferences!.getString('sellerName')!),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
