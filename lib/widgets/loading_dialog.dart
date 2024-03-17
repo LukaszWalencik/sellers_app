@@ -17,7 +17,7 @@ class LoadingDialog extends StatelessWidget {
         children: [
           circularProgress(),
           const SizedBox(height: 10),
-          Text(message! + 'Please wait..')
+          Text(message! + '\nPlease wait..')
         ],
       ),
     );
