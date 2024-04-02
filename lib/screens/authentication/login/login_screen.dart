@@ -105,6 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
               builder: (context) => const AuthScreen(),
             ),
           );
+          showDialog(
+            context: context,
+            builder: (context) => ErrorDialog(
+              message: 'No record exist',
+            ),
+          );
         }
       },
     );
