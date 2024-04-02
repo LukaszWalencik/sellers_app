@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sellers_app/screens/authentication/auth_screen.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
@@ -60,15 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
     if (currentUser != null) {
-      readDataAndSetDataLocaly(currentUser!).then((value) {
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
-        );
-      });
+      readDataAndSetDataLocaly(currentUser!);
     }
   }
 
@@ -79,22 +72,40 @@ class _LoginScreenState extends State<LoginScreen> {
         .get()
         .then(
       (snapshot) async {
-        await sharedPreferences!.setString('uid', currentUser.uid);
+        if (snapshot.exists) {
+          await sharedPreferences!.setString('uid', currentUser.uid);
 
-        await sharedPreferences!.setString(
-          'sellerEmail',
-          snapshot.data()!['sellerEmail'],
-        );
+          await sharedPreferences!.setString(
+            'sellerEmail',
+            snapshot.data()!['sellerEmail'],
+          );
 
-        await sharedPreferences!.setString(
-          'sellerName',
-          snapshot.data()!['sellerName'],
-        );
+          await sharedPreferences!.setString(
+            'sellerName',
+            snapshot.data()!['sellerName'],
+          );
 
-        await sharedPreferences!.setString(
-          'sellerAvatarURL',
-          snapshot.data()!['sellerAvatarURL'],
-        );
+          await sharedPreferences!.setString(
+            'sellerAvatarURL',
+            snapshot.data()!['sellerAvatarURL'],
+          );
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+        } else {
+          firebaseAuth.signOut();
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AuthScreen(),
+            ),
+          );
+        }
       },
     );
   }
