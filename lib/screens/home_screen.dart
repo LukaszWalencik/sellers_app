@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sellers_app/screens/authentication/auth_screen.dart';
 import 'package:sellers_app/screens/global/global.dart';
+import 'package:sellers_app/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -30,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text(sharedPreferences!.getString('sellerName')!),
         centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: ElevatedButton(
