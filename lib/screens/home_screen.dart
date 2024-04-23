@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sellers_app/screens/authentication/auth_screen.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/widgets/custom_drawer.dart';
 
@@ -33,22 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(sharedPreferences!.getString('sellerName')!),
         centerTitle: true,
       ),
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-          onPressed: () {
-            firebaseAuth.signOut().then(
-                  (value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AuthScreen(),
-                    ),
-                  ),
-                );
-          },
-          child: const Text('Logout'),
-        ),
-      ),
+      body: Center(),
     );
   }
 }
