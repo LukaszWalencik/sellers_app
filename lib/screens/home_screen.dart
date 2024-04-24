@@ -30,7 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        title: Text(sharedPreferences!.getString('sellerName')!),
+        title: Text(
+          sharedPreferences!.getString('sellerName')!,
+          style: TextStyle(fontSize: 30, fontFamily: 'Lobster'),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
