@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sellers_app/screens/global/global.dart';
+import 'package:sellers_app/screens/menus_upload_screen.dart';
 import 'package:sellers_app/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,6 +32,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text(sharedPreferences!.getString('sellerName')!),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MenusUploadScreen()));
+              },
+              icon: Icon(Icons.post_add))
+        ],
       ),
       body: Center(),
     );
