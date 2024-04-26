@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sellers_app/screens/global/global.dart';
+import 'package:sellers_app/screens/home_screen.dart';
 
 class MenusUploadScreen extends StatefulWidget {
   const MenusUploadScreen({super.key});
@@ -26,12 +26,23 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             ),
           ),
         ),
-        title: Text(
+        title: const Text(
           'Add New Menu',
           style: TextStyle(fontSize: 30, fontFamily: 'Lobster'),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
