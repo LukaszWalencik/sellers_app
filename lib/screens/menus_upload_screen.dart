@@ -46,6 +46,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.shop_two,
@@ -53,7 +54,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               size: 200,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                takeImage(context);
+              },
               child: const Text(
                 'Add New Menu',
                 style: TextStyle(color: Colors.white, fontSize: 18),
@@ -71,6 +74,30 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         ),
       ),
     );
+  }
+
+  takeImage(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return const SimpleDialog(
+            title: Text(
+              'Menu Image',
+              style: TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            children: [
+              SimpleDialogOption(
+                child: Text(
+                  'Capture with Camera',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   @override
