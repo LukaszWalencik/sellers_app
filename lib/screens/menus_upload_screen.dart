@@ -44,6 +44,32 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           },
         ),
       ),
+      body: Center(
+        child: Column(
+          children: [
+            const Icon(
+              Icons.shop_two,
+              color: Colors.grey,
+              size: 200,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text(
+                'Add New Menu',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
