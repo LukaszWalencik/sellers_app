@@ -185,6 +185,24 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           ),
         ],
       ),
+      body: ListView(
+        children: [
+          Container(
+            height: 230,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(File(imageXFile!.path)))),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
