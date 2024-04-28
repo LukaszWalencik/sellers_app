@@ -119,7 +119,12 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     );
   }
 
-  pickImageWithCamera() {}
+  pickImageWithCamera() async {
+    Navigator.pop(context);
+    imageXFile = await imagePicker.pickImage(
+        source: ImageSource.camera, maxHeight: 720, maxWidth: 1280);
+  }
+
   pickImageFromGallery() {}
 
   @override
