@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/screens/home_screen.dart';
@@ -31,7 +33,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         ),
         title: const Text(
           'Add New Menu',
-          style: TextStyle(fontSize: 30, fontFamily: 'Lobster'),
+          style: TextStyle(fontSize: 20, fontFamily: 'Lobster'),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -141,8 +143,53 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     });
   }
 
+  menusUploadFormScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue,
+                Colors.green,
+              ],
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
+        title: const Text(
+          'Uploading New Menu',
+          style: TextStyle(fontSize: 20, fontFamily: 'Lobster'),
+        ),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {},
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              'Add',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'Lobster',
+                letterSpacing: 3,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return defaultScreen();
+    return imageXFile == null ? defaultScreen() : menusUploadFormScreen();
   }
 }
