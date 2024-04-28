@@ -57,10 +57,6 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               onPressed: () {
                 takeImage(context);
               },
-              child: const Text(
-                'Add New Menu',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
                 shape: MaterialStateProperty.all(
@@ -68,6 +64,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+              ),
+              child: const Text(
+                'Add New Menu',
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
             )
           ],
@@ -78,27 +78,46 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 
   takeImage(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return const SimpleDialog(
-            title: Text(
-              'Menu Image',
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text(
+            'Menu Image',
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          children: [
+            SimpleDialogOption(
+              onPressed: pickImageWithCamera,
+              child: const Text(
+                'Capture with Camera',
+                style: TextStyle(color: Colors.grey),
               ),
             ),
-            children: [
-              SimpleDialogOption(
-                child: Text(
-                  'Capture with Camera',
-                  style: TextStyle(color: Colors.grey),
-                ),
+            SimpleDialogOption(
+              onPressed: pickImageFromGallery,
+              child: const Text(
+                'Capture with Camera',
+                style: TextStyle(color: Colors.grey),
               ),
-            ],
-          );
-        });
+            ),
+            SimpleDialogOption(
+              child: const Text(
+                'Capture with Camera',
+                style: TextStyle(color: Colors.grey),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
   }
+
+  pickImageWithCamera() {}
+  pickImageFromGallery() {}
 
   @override
   Widget build(BuildContext context) {
