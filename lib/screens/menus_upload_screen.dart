@@ -86,6 +86,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         return SimpleDialog(
           title: const Text(
             'Menu Image',
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.green,
               fontWeight: FontWeight.bold,
@@ -96,19 +97,22 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               onPressed: pickImageWithCamera,
               child: const Text(
                 'Capture with Camera',
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),
             ),
             SimpleDialogOption(
               onPressed: pickImageFromGallery,
               child: const Text(
-                'Capture with Camera',
+                'Select from Gallery',
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),
             ),
             SimpleDialogOption(
               child: const Text(
-                'Capture with Camera',
+                'Cancel',
+                textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),
               onPressed: () => Navigator.pop(context),
@@ -123,9 +127,19 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     Navigator.pop(context);
     imageXFile = await imagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 720, maxWidth: 1280);
+    setState(() {
+      imageXFile;
+    });
   }
 
-  pickImageFromGallery() {}
+  pickImageFromGallery() async {
+    Navigator.pop(context);
+    imageXFile = await imagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 720, maxWidth: 1280);
+    setState(() {
+      imageXFile;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
