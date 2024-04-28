@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/screens/home_screen.dart';
 
 class MenusUploadScreen extends StatefulWidget {
@@ -9,6 +10,8 @@ class MenusUploadScreen extends StatefulWidget {
 }
 
 class _MenusUploadScreenState extends State<MenusUploadScreen> {
+  XFile? imageXFile;
+  final ImagePicker imagePicker = ImagePicker();
   defaultScreen() {
     return Scaffold(
       appBar: AppBar(
