@@ -208,6 +208,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               ),
             ),
           ),
+          const Divider(color: Colors.green),
           ListTile(
             leading: const Icon(
               Icons.perm_device_information,
@@ -228,6 +229,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               ),
             ),
           ),
+          const Divider(color: Colors.green),
           ListTile(
             leading: const Icon(
               Icons.title,
@@ -248,6 +250,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               ),
             ),
           ),
+          const Divider(color: Colors.green),
         ],
       ),
     );
