@@ -189,7 +189,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       ),
       body: ListView(
         children: [
-          Container(
+          SizedBox(
             height: 230,
             width: MediaQuery.of(context).size.width * 0.8,
             child: Center(
@@ -209,25 +209,45 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.perm_device_information,
               color: Colors.green,
             ),
-            title: Container(
+            title: SizedBox(
               width: 250,
               child: TextField(
                 controller: shortInfoController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Menu info',
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
                   border: InputBorder.none,
                 ),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
-          )
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.title,
+              color: Colors.green,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                  hintText: 'Menu title',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
         ],
       ),
     );
