@@ -169,8 +169,10 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {},
+          icon: const Icon(Icons.clear, color: Colors.white),
+          onPressed: () {
+            clearMenuUploadForm();
+          },
         ),
         actions: [
           TextButton(
@@ -254,6 +256,14 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         ],
       ),
     );
+  }
+
+  clearMenuUploadForm() {
+    setState(() {
+      shortInfoController.clear();
+      titleController.clear();
+      imageXFile = null;
+    });
   }
 
   @override
