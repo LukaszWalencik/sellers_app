@@ -14,6 +14,8 @@ class MenusUploadScreen extends StatefulWidget {
 class _MenusUploadScreenState extends State<MenusUploadScreen> {
   XFile? imageXFile;
   final ImagePicker imagePicker = ImagePicker();
+  TextEditingController shortInfoController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
   defaultScreen() {
     return Scaffold(
       appBar: AppBar(
@@ -195,9 +197,34 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                 aspectRatio: 16 / 9,
                 child: Container(
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: FileImage(File(imageXFile!.path)))),
+                    image: DecorationImage(
+                      image: FileImage(
+                        File(imageXFile!.path),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.perm_device_information,
+              color: Colors.green,
+            ),
+            title: Container(
+              width: 250,
+              child: TextField(
+                controller: shortInfoController,
+                decoration: InputDecoration(
+                  hintText: 'Menu info',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  border: InputBorder.none,
+                ),
+                style: TextStyle(color: Colors.black),
               ),
             ),
           )
