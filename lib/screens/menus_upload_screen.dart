@@ -265,29 +265,29 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   }
 
   validateUploadForm() {
-    setState(() {
-      uploading = true;
-      if (imageXFile != null) {
-        if (shortInfoController.text.isNotEmpty &&
-            titleController.text.isNotEmpty) {
+    if (imageXFile != null) {
+      if (shortInfoController.text.isNotEmpty &&
+          titleController.text.isNotEmpty) {
+        setState(() {
+          uploading = true;
+        });
 // ulpoad image
 // save info to firebase
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) => const ErrorDialog(
-              message: 'Please write title and info for Menu.',
-            ),
-          );
-        }
       } else {
         showDialog(
           context: context,
-          builder: (context) =>
-              const ErrorDialog(message: 'Please pick an image for Menu.'),
+          builder: (context) => const ErrorDialog(
+            message: 'Please write title and info for Menu.',
+          ),
         );
       }
-    });
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            const ErrorDialog(message: 'Please pick an image for Menu.'),
+      );
+    }
   }
 
   clearMenuUploadForm() {
