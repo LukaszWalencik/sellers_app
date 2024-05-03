@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/screens/home_screen.dart';
+import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/progress_bar.dart';
 
 class MenusUploadScreen extends StatefulWidget {
@@ -180,9 +181,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              validateUploadForm();
-            },
+            onPressed: uploading ? null : () => validateUploadForm(),
             child: const Text(
               'Add',
               style: TextStyle(
@@ -268,6 +267,26 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   validateUploadForm() {
     setState(() {
       uploading = true;
+      if (imageXFile != null) {
+        if (shortInfoController.text.isNotEmpty &&
+            titleController.text.isNotEmpty) {
+// ulpoad image
+// save info to firebase
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) => const ErrorDialog(
+              message: 'Please write title and info for Menu.',
+            ),
+          );
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              const ErrorDialog(message: 'Please pick an image for Menu.'),
+        );
+      }
     });
   }
 
