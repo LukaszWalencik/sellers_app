@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/screens/home_screen.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/progress_bar.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 
 class MenusUploadScreen extends StatefulWidget {
   const MenusUploadScreen({super.key});
@@ -20,6 +21,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   TextEditingController titleController = TextEditingController();
 
   bool uploading = false;
+  String uniqueUIDName = DateTime.now().microsecondsSinceEpoch.toString();
 
   defaultScreen() {
     return Scaffold(
@@ -264,7 +266,19 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     );
   }
 
-  validateUploadForm() {
+  uploadImage(mImageFile) async {
+    storageRef.Reference reference =
+        storageRef.FirebaseStorage.instance.ref().child('menus');
+    storageRef.UploadTask uploadTask =
+        reference.child('$uniqueUIDName.jpg').putFile(mImageFile);
+    storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+
+    String downloadURL = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadURL;
+  }
+
+  validateUploadForm() async {
     if (imageXFile != null) {
       if (shortInfoController.text.isNotEmpty &&
           titleController.text.isNotEmpty) {
