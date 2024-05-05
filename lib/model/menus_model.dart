@@ -7,7 +7,7 @@ class MenusModel {
   String? menuTitle;
   String? menuInfo;
   Timestamp? publishedDate;
-  String? thumbailUrl;
+  String? thumbnailUrl;
   String? status;
   MenusModel({
     this.menuID,
@@ -15,7 +15,17 @@ class MenusModel {
     this.menuTitle,
     this.menuInfo,
     this.publishedDate,
-    this.thumbailUrl,
+    this.thumbnailUrl,
     this.status,
   });
+
+  MenusModel.fromJson(Map<String, dynamic> json) {
+    menuID = json['menuID'];
+    sellerUID = json['sellerUID'];
+    menuTitle = json['menuTitle'];
+    menuInfo = json['menuInfo'];
+    publishedDate = json['publishedDate'];
+    status = json['status]'];
+    thumbnailUrl = json['thumbnailUrl'];
+  }
 }
