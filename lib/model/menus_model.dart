@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MenusModel {
@@ -27,5 +26,17 @@ class MenusModel {
     publishedDate = json['publishedDate'];
     status = json['status]'];
     thumbnailUrl = json['thumbnailUrl'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'menuID': menuID,
+      'sellerUID': sellerUID,
+      'menuTitle': menuTitle,
+      'menuInfo': menuInfo,
+      'publishedDate': publishedDate,
+      'thumbnailUrl': thumbnailUrl,
+      'status': status,
+    };
   }
 }
