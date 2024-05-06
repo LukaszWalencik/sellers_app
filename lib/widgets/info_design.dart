@@ -5,10 +5,7 @@ import 'package:sellers_app/model/menus_model.dart';
 class InfoDesign extends StatefulWidget {
   MenusModel? menusModel;
   BuildContext? context;
-  InfoDesign({
-    super.key,
-    this.menusModel,
-  });
+  InfoDesign({super.key, this.menusModel, this.context});
 
   @override
   State<InfoDesign> createState() => _InfoDesignState();
