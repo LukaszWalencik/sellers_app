@@ -52,6 +52,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(
+            child: ListTile(
+              title: Text(
+                'My Menus',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Signatra',
+                    fontSize: 30,
+                    letterSpacing: 2,
+                    color: Colors.black),
+              ),
+            ),
+          ),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('sellers')
