@@ -1,11 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:sellers_app/model/menus_model.dart';
+import 'package:sellers_app/screens/items_screen.dart';
 
 class InfoDesign extends StatefulWidget {
   MenusModel? menusModel;
   BuildContext? context;
-  InfoDesign({super.key, this.menusModel, this.context});
+  InfoDesign({
+    Key? key,
+    this.menusModel,
+    this.context,
+  }) : super(key: key);
 
   @override
   State<InfoDesign> createState() => _InfoDesignState();
@@ -15,6 +21,16 @@ class _InfoDesignState extends State<InfoDesign> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemsScreen(
+              menusModel: widget.menusModel,
+            ),
+          ),
+        );
+      },
       splashColor: Colors.green,
       child: Padding(
         padding: const EdgeInsets.all(5),
