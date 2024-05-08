@@ -374,13 +374,14 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
           },
         );
       },
-    );
-    clearItemUploadForm();
-    setState(
-      () {
-        uploading = false;
-      },
-    );
+    ).then((value) {
+      clearItemUploadForm();
+      setState(
+        () {
+          uploading = false;
+        },
+      );
+    });
   }
 
   validateUploadForm() async {
@@ -421,6 +422,8 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       () {
         shortInfoController.clear();
         titleController.clear();
+        descriptionController.clear();
+        priceController.clear();
         imageXFile = null;
       },
     );
