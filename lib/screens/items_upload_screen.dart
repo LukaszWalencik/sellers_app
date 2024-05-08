@@ -354,11 +354,33 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       'publishedDate': DateTime.now(),
       'status': 'available',
       'thumbnailUrl': downloadURL,
-    });
+    }).then(
+      (_) {
+        final itemRef = FirebaseFirestore.instance.collection('items');
+
+        itemRef.doc(uniqueUIDName).set(
+          {
+            'itemID': uniqueUIDName,
+            'menuID': widget.menusModel!.menuID,
+            'sellerUID': sharedPreferences!.getString('uid'),
+            'sellerName': sharedPreferences!.getString('sellerName'),
+            'itemInfo': shortInfoController.text.toString(),
+            'itemTitle': titleController.text.toString(),
+            'description': descriptionController.text.toString(),
+            'price': int.parse(priceController.text),
+            'publishedDate': DateTime.now(),
+            'status': 'available',
+            'thumbnailUrl': downloadURL,
+          },
+        );
+      },
+    );
     clearItemUploadForm();
-    setState(() {
-      uploading = false;
-    });
+    setState(
+      () {
+        uploading = false;
+      },
+    );
   }
 
   validateUploadForm() async {
@@ -367,9 +389,11 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
           titleController.text.isNotEmpty &&
           descriptionController.text.isNotEmpty &&
           priceController.text.isNotEmpty) {
-        setState(() {
-          uploading = true;
-        });
+        setState(
+          () {
+            uploading = true;
+          },
+        );
 // ulpoad image
 
         String downloadURL = await uploadImage(File(imageXFile!.path));
@@ -393,11 +417,13 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   }
 
   clearItemUploadForm() {
-    setState(() {
-      shortInfoController.clear();
-      titleController.clear();
-      imageXFile = null;
-    });
+    setState(
+      () {
+        shortInfoController.clear();
+        titleController.clear();
+        imageXFile = null;
+      },
+    );
   }
 
   @override
