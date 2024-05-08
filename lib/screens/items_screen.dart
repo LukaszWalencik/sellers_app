@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
+import 'package:sellers_app/screens/items_upload_screen.dart';
 import 'package:sellers_app/screens/menus_upload_screen.dart';
 import 'package:sellers_app/widgets/custom_drawer.dart';
 import 'package:sellers_app/widgets/text_header.dart';
@@ -49,9 +50,11 @@ class _ItemsScreenState extends State<ItemsScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MenusUploadScreen()));
+                        builder: (context) => ItemsUploadScreen(
+                              menusModel: widget.menusModel,
+                            )));
               },
-              icon: const Icon(Icons.post_add))
+              icon: const Icon(Icons.library_add))
         ],
       ),
       body: CustomScrollView(
