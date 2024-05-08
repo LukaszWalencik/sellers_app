@@ -324,7 +324,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
   Future<String> uploadImage(mImageFile) async {
     storageRef.Reference reference =
-        storageRef.FirebaseStorage.instance.ref().child('menus');
+        storageRef.FirebaseStorage.instance.ref().child('items');
     storageRef.UploadTask uploadTask =
         reference.child('$uniqueUIDName.jpg').putFile(mImageFile);
     storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
@@ -338,13 +338,19 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
     final ref = FirebaseFirestore.instance
         .collection('sellers')
         .doc(sharedPreferences!.getString('uid'))
-        .collection('menus');
+        .collection('menus')
+        .doc(widget.menusModel!.menuID)
+        .collection('items');
 
     ref.doc(uniqueUIDName).set({
-      'menuID': uniqueUIDName,
+      'itemID': uniqueUIDName,
+      'menuID': widget.menusModel!.menuID,
       'sellerUID': sharedPreferences!.getString('uid'),
-      'menuInfo': shortInfoController.text.toString(),
-      'menuTitle': titleController.text.toString(),
+      'sellerName': sharedPreferences!.getString('sellerName'),
+      'itemInfo': shortInfoController.text.toString(),
+      'itemTitle': titleController.text.toString(),
+      'description': descriptionController.text.toString(),
+      'price': int.parse(priceController.text),
       'publishedDate': DateTime.now(),
       'status': 'available',
       'thumbnailUrl': downloadURL,
@@ -358,7 +364,9 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   validateUploadForm() async {
     if (imageXFile != null) {
       if (shortInfoController.text.isNotEmpty &&
-          titleController.text.isNotEmpty) {
+          titleController.text.isNotEmpty &&
+          descriptionController.text.isNotEmpty &&
+          priceController.text.isNotEmpty) {
         setState(() {
           uploading = true;
         });
