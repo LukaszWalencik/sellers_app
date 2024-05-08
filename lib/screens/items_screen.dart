@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/menus_upload_screen.dart';
+import 'package:sellers_app/widgets/custom_drawer.dart';
 import 'package:sellers_app/widgets/text_header.dart';
 
 class ItemsScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: CustomDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
