@@ -1,16 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/home_screen.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/progress_bar.dart';
-import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 
 class ItemsUploadScreen extends StatefulWidget {
-  const ItemsUploadScreen({super.key});
+  MenusModel? menusModel;
+  ItemsUploadScreen({
+    Key? key,
+    this.menusModel,
+  }) : super(key: key);
 
   @override
   State<ItemsUploadScreen> createState() => _ItemsUploadScreenState();
@@ -21,6 +28,10 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   final ImagePicker imagePicker = ImagePicker();
   TextEditingController shortInfoController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+
+  TextEditingController descriptionController = TextEditingController();
+
+  TextEditingController priceController = TextEditingController();
 
   bool uploading = false;
   String uniqueUIDName = DateTime.now().microsecondsSinceEpoch.toString();
@@ -43,7 +54,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
           ),
         ),
         title: const Text(
-          'Add New Menu',
+          'Add New Item',
           style: TextStyle(fontSize: 20, fontFamily: 'Lobster'),
         ),
         centerTitle: true,
@@ -154,7 +165,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
     });
   }
 
-  menusUploadFormScreen() {
+  itemUploadFormScreen() {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -172,7 +183,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
           ),
         ),
         title: const Text(
-          'Uploading New Menu',
+          'Uploading New Item',
           style: TextStyle(fontSize: 20, fontFamily: 'Lobster'),
         ),
         centerTitle: true,
@@ -180,7 +191,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         leading: IconButton(
           icon: const Icon(Icons.clear, color: Colors.white),
           onPressed: () {
-            clearMenuUploadForm();
+            clearItemUploadForm();
           },
         ),
         actions: [
@@ -231,7 +242,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
               child: TextField(
                 controller: shortInfoController,
                 decoration: const InputDecoration(
-                  hintText: 'Menu info',
+                  hintText: 'Info',
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
@@ -252,7 +263,50 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
               child: TextField(
                 controller: titleController,
                 decoration: const InputDecoration(
-                  hintText: 'Menu title',
+                  hintText: 'Title',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          const Divider(color: Colors.green),
+          ListTile(
+            leading: const Icon(
+              Icons.description,
+              color: Colors.green,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(
+                  hintText: 'Description',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+          const Divider(color: Colors.green),
+          ListTile(
+            leading: const Icon(
+              Icons.money,
+              color: Colors.green,
+            ),
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: priceController,
+                decoration: const InputDecoration(
+                  hintText: 'Price',
                   hintStyle: TextStyle(
                     color: Colors.grey,
                   ),
@@ -295,7 +349,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       'status': 'available',
       'thumbnailUrl': downloadURL,
     });
-    clearMenuUploadForm();
+    clearItemUploadForm();
     setState(() {
       uploading = false;
     });
@@ -330,7 +384,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
     }
   }
 
-  clearMenuUploadForm() {
+  clearItemUploadForm() {
     setState(() {
       shortInfoController.clear();
       titleController.clear();
@@ -340,6 +394,6 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return imageXFile == null ? defaultScreen() : menusUploadFormScreen();
+    return imageXFile == null ? defaultScreen() : itemUploadFormScreen();
   }
 }
