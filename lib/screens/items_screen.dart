@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/menus_upload_screen.dart';
+import 'package:sellers_app/widgets/text_header.dart';
 
 class ItemsScreen extends StatefulWidget {
   final MenusModel? menusModel;
@@ -49,6 +50,14 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         builder: (context) => const MenusUploadScreen()));
               },
               icon: const Icon(Icons.post_add))
+        ],
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: TextHeader(title: 'My ${widget.menusModel!.menuTitle}'),
+          ),
         ],
       ),
     );
