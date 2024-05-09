@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ItemsModel {
@@ -27,7 +24,7 @@ class ItemsModel {
     this.thumbnailUrl,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'itemID': itemID,
       'menuID': menuID,
@@ -42,7 +39,7 @@ class ItemsModel {
     };
   }
 
-  factory ItemsModel.fromMap(Map<String, dynamic> map) {
+  factory ItemsModel.fromJson(Map<String, dynamic> map) {
     return ItemsModel(
       itemID: map['itemID'] != null ? map['itemID'] as String : null,
       menuID: map['menuID'] != null ? map['menuID'] as String : null,
@@ -60,9 +57,10 @@ class ItemsModel {
           map['thumbnailUrl'] != null ? map['thumbnailUrl'] as String : null,
     );
   }
+  // }
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory ItemsModel.fromJson(String source) =>
-      ItemsModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory ItemsModel.fromJson(String source) =>
+  //     ItemsModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
