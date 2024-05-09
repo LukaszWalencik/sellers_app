@@ -1,11 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sellers_app/model/items_model.dart';
 
 import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/items_upload_screen.dart';
 import 'package:sellers_app/screens/menus_upload_screen.dart';
 import 'package:sellers_app/widgets/custom_drawer.dart';
+import 'package:sellers_app/widgets/info_design.dart';
+import 'package:sellers_app/widgets/progress_bar.dart';
 import 'package:sellers_app/widgets/text_header.dart';
 
 class ItemsScreen extends StatefulWidget {
@@ -63,6 +67,35 @@ class _ItemsScreenState extends State<ItemsScreen> {
             pinned: true,
             delegate: TextHeader(title: 'My ${widget.menusModel!.menuTitle}'),
           ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('sellers')
+                .doc(sharedPreferences!.getString('uid'))
+                .collection('menus')
+                .doc(widget.menusModel!.menuID)
+                .collection('items')
+                .snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: circularProgress(),
+                      ),
+                    )
+                  : SliverGrid.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1),
+                      itemBuilder: (context, index) {
+                        ItemsModel itemsModel = ItemsModel.fromJson(
+                            snapshot.data!.docs[index].data()!
+                                as Map<String, dynamic>);
+                        return Container();
+                      },
+                    );
+            },
+          )
         ],
       ),
     );
