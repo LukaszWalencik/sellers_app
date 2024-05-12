@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sellers_app/screens/authentication/auth_screen.dart';
 import 'package:sellers_app/screens/global/global.dart';
+import 'package:sellers_app/screens/home_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -63,7 +64,14 @@ class CustomDrawer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  },
                 ),
                 const Divider(
                   height: 1,
