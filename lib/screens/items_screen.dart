@@ -6,9 +6,8 @@ import 'package:sellers_app/model/items_model.dart';
 import 'package:sellers_app/model/menus_model.dart';
 import 'package:sellers_app/screens/global/global.dart';
 import 'package:sellers_app/screens/items_upload_screen.dart';
-import 'package:sellers_app/screens/menus_upload_screen.dart';
 import 'package:sellers_app/widgets/custom_drawer.dart';
-import 'package:sellers_app/widgets/info_design.dart';
+import 'package:sellers_app/widgets/items_design.dart';
 import 'package:sellers_app/widgets/progress_bar.dart';
 import 'package:sellers_app/widgets/text_header.dart';
 
@@ -91,7 +90,10 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         ItemsModel itemsModel = ItemsModel.fromJson(
                             snapshot.data!.docs[index].data()!
                                 as Map<String, dynamic>);
-                        return Container();
+                        return ItemsDesign(
+                          itemModel: itemsModel,
+                          context: context,
+                        );
                       },
                     );
             },
