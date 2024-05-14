@@ -73,6 +73,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                 .collection('menus')
                 .doc(widget.menusModel!.menuID)
                 .collection('items')
+                .orderBy('publishedDate', descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
               return !snapshot.hasData
